@@ -31,3 +31,9 @@ class User(db.Model, UserMixin):
             'username': self.username,
             'email': self.email
         }
+    
+    characters = db.relationship(
+        "Character",
+        back_populates="user",
+        cascade="all, delete-orphan"
+    )
