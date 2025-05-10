@@ -1,6 +1,12 @@
 from flask.cli import AppGroup
 from .users import seed_users, undo_users
-from .characters import seed_charcters, undo_characters
+from .characters import seed_characters, undo_characters
+from .backgrounds import seed_backgrounds, undo_backgrounds
+from .char_classes import seed_char_classes, undo_char_classes
+from .class_feats import seed_class_feat, undo_class_feats
+from .races import seed_races, undo_races
+from .subclass_feats import seed_subclass_feats, undo_subclass_feats
+from .subclasses import seed_subclasses, undo_subclasses
 
 from app.models.db import db, environment, SCHEMA
 
@@ -20,7 +26,13 @@ def seed():
         undo_users()
         undo_characters()
     seed_users()
-    seed_charcters()
+    seed_characters()
+    seed_backgrounds()
+    seed_char_classes()
+    seed_class_feat()
+    seed_races()
+    seed_subclass_feats()
+    seed_subclasses()
     # Add other seed functions here
 
 
@@ -29,4 +41,10 @@ def seed():
 def undo():
     undo_users()
     undo_characters()
+    undo_backgrounds()
+    undo_char_classes()
+    undo_class_feats()
+    undo_races()
+    undo_subclass_feats()
+    undo_subclasses()
     # Add other undo functions here

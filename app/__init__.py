@@ -8,6 +8,19 @@ from .models import db, User
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .api.character_routes import character_routes
+from .api.char_class_routes import char_class_routes
+from .api.background_routes import background_routes
+from .api.feat_routes import feat_routes
+from .api.race_routes import race_routes
+from .api.item_routes import item_routes
+from .api.class_feat_routes import class_feat_routes
+from .api.race_trait_routes import race_traits_routes
+from .api.skill_routes import skill_routes
+from .api.spell_routes import spell_routes
+from .api.subclass_feat_routes import subclass_feat_routes
+from .api.subclass_routes import subclass_routes
+from .api.subrace_routes import subrace_routes
+from .api.subrace_trait_routes import subrace_trait_routes
 from .seeds import seed_commands
 from .config import Config
 
@@ -30,6 +43,19 @@ app.config.from_object(Config)
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(character_routes, url_prefix='/api/characters')
+app.register_blueprint(race_routes, url_prefix='/api/races')
+app.register_blueprint(char_class_routes, url_prefix='/api/classes')
+app.register_blueprint(background_routes, url_prefix='/api/backgrounds')
+app.register_blueprint(feat_routes, url_prefix='/api/feats')
+app.register_blueprint(item_routes, url_prefix='/api/items')
+app.register_blueprint(class_feat_routes, url_prefix='/api/class_feats')
+app.register_blueprint(race_traits_routes, url_prefix='/api/race_traits')
+app.register_blueprint(skill_routes, url_prefix='/api/skills')
+app.register_blueprint(spell_routes, url_prefix='/api/spells')
+app.register_blueprint(subclass_feat_routes, url_prefix='/api/subclass_feats')
+app.register_blueprint(subclass_routes, url_prefix='/api/subclasses')
+app.register_blueprint(subrace_routes, url_prefix='/api/subraces')
+app.register_blueprint(subrace_trait_routes, url_prefix='/api/subrace_traits')
 db.init_app(app)
 Migrate(app, db)
 

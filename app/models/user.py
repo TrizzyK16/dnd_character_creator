@@ -32,7 +32,7 @@ class User(db.Model, UserMixin):
             'email': self.email
         }
     
-    characters = db.relationship(
+    character = db.relationship(
         "Character",
         back_populates="user",
         cascade="all, delete-orphan"

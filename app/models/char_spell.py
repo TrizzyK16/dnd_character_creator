@@ -1,0 +1,22 @@
+from .db import db, environment, SCHEMA, add_prefix_for_prod
+from sqlalchemy.orm import relationship
+
+class CharSpell(db.Model):
+    __tablename__ = "char_spells"
+
+    if environment == "production":
+        __table_args__ = {"schema": SCHEMA}
+
+    id = db.Column(db.Integer, primary_key=True)
+    character_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("characters.id")), nullable=False)
+    index = db.Column(db.String, nullable=False, unique=True)
+
+    # Relationships
+    character = db.relationship("Character", back_populates="char_spell")
+    spells = db.relationship("Spell", back_populates="char_spell", cascade="all, delete-orphan")
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "index": self.index
+        }
