@@ -9,7 +9,7 @@ def seed_backgrounds():
         skill_prof = ["Insight", "Religion"],
         tool_prof = ["None"],
         languages = ["Two of your choice"],
-        equipment = ["Holy ymbol", "Prayer book or prayer wheel", "5 sticks of incense", "Vestments", "A set of common clothes", "15gp"]
+        equipment = ["Holy symbol", "Prayer book or prayer wheel", "5 sticks of incense", "Vestments", "A set of common clothes", "15gp"]
     )
     background2 = Background(
         index = "anthropologist",

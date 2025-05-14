@@ -1,0 +1,105 @@
+.character-sheet-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #f7f7f7;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+  font-family: "Georgia", serif;
+}
+
+.sheet-header h1 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.basic-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.sheet-body section {
+  margin-bottom: 2rem;
+}
+
+.ability-scores .score-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1rem;
+}
+
+.ability {
+  background-color: white;
+  padding: 1rem;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.skills-section {
+  margin-bottom: 2rem;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.skill {
+  background-color: white;
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.skill input[type="number"] {
+  width: 50px;
+  text-align: center;
+}
+
+.skill label {
+  flex-grow: 1;
+}
+
+.combat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.25rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.proficiencies {
+  background-color: #ffffff;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.prof-section {
+  margin-bottom: 1rem;
+}
+
+.prof-section h3 {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.prof-divider {
+  height: 1px;
+  background-color: #ccc;
+  margin: 0.5rem 0;
+}

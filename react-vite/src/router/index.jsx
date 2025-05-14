@@ -2,6 +2,9 @@ import { createBrowserRouter } from 'react-router-dom';
 import LoginFormPage from '../components/LoginFormPage';
 import SignupFormPage from '../components/SignupFormPage';
 import Layout from './Layout';
+import LandingPage from '../components/LandingPage/LandingPage';
+import CharacterBuilder from '../components/CharacterBuilder/CharacterBuilder';
+import CharacterSheet from '../components/CharacterSheet';
 
 export const router = createBrowserRouter([
   {
@@ -9,7 +12,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <h1>Welcome!</h1>,
+        element: <LandingPage />,
       },
       {
         path: "login",
@@ -19,6 +22,14 @@ export const router = createBrowserRouter([
         path: "signup",
         element: <SignupFormPage />,
       },
+      {
+        path: "/builder",
+        element: <CharacterBuilder />
+      },
+      {
+        path: "/character-sheet",
+        element: <CharacterSheet />
+      }
     ],
   },
 ]);

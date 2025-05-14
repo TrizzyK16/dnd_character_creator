@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from app.models import CharClass
 
-char_class_routes = Blueprint('char_classes', __name__)
+char_class_routes = Blueprint('classes', __name__)
 
 # Get all character classes
 @char_class_routes.route('/')

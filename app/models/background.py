@@ -27,6 +27,6 @@ class Background(db.Model):
             "description": self.description,
             "skill_prof": self.skill_prof,
             "tool_prof": self.tool_prof,
-            "languages": self.langauges,
+            "languages": self.languages,
             "equipment": self.equipment
         }

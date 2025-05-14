@@ -1,0 +1,53 @@
+body {
+  background-color: bisque;
+}
+
+.builder-container {
+  padding: 2rem;
+  max-width: 900px;
+  margin: auto;
+  background-color: bisque;
+}
+
+.section {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.selector-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.ability-scores-row {
+  display: flex;
+  flex-wrap: wrap; /* Optional: allows wrapping on smaller screens */
+  gap: 1rem;        /* Space between boxes */
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.ability-score {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 120px; /* Adjust width if needed */
+}
+
+.ability-score label {
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
+.ability-score input {
+  width: 55%;
+  padding: 4px;
+  font-size: 1rem;
+}
+
+.level-container input {
+  width: 3.75%;
+}
