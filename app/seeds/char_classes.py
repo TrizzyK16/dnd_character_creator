@@ -20,10 +20,10 @@ def seed_char_classes():
         hit_dice = "1d8 per artificer level",
         hp = "8 + your Con modifier",
         proficiencies = {
-            "armor": ["Light armor", "medium armor", "shields"],
+            "armor": ["Light armor", "Medium armor", "Shields"],
             "weapons": ["Simple weapons"],
-            "tools": ["Thieves tools", "Tinkers tools", "one type of artins tools of your choice"],
-            "savingThrows": ["Con", "Int"],
+            "tools": ["Thieves tools", "Tinkers tools", "One type of artisins tools of your choice"],
+            "savingThrows": ["con", "int"],
             "Skills": {
                 "chooseTwo": ["Arcana", "History", "Investigation", "Medicine", "Nature", "Perception", "Sleight of Hand"]
             }

@@ -11,9 +11,6 @@ class Inventory(db.Model):
     name = db.Column(db.String, nullable=False)
 
     # Relationships
-    character = db.relationship("Character", back_populates="inventory", cascade="all, delete-orphan")
-    items = db.relationship("Item", back_populates="inventory", cascade="all, delete-orphan")
-
     def to_dict(self):
         return {
             "id": self.id,

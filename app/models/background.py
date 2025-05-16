@@ -16,8 +16,6 @@ class Background(db.Model):
     languages = db.Column(db.JSON)
     equipment = db.Column(db.JSON)
 
-    # Relationships
-    character = db.relationship("Character", back_populates="background", cascade="all, delete-orphan")
 
     def to_dict(self):
         return {

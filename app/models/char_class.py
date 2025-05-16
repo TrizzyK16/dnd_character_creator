@@ -8,7 +8,6 @@ class CharClass(db.Model):
         __table_args__ = {"schema": SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    character_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("characters.id")))
 
     index = db.Column(db.String, nullable=False)
     name = db.Column(db.String, nullable=False)
@@ -19,7 +18,6 @@ class CharClass(db.Model):
     starting_equipment = db.Column(db.JSON, nullable=False)
 
     # Relationships
-    character = db.relationship("Character", back_populates="char_classes")
     class_feats = db.relationship("ClassFeat", back_populates="char_class", cascade="all, delete-orphan")
     subclass = db.relationship("Subclass", back_populates="char_class", cascade="all, delete-orphan")
 

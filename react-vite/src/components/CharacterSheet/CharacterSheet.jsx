@@ -6,6 +6,8 @@ export default function CharacterSheet() {
     const { character } = useCharacter();
     const [raceData, setRaceData] = useState(null);
     const [backgroundData, setBackgroundData] = useState(null);
+    const [classData, setClassData] = useState(null);
+    const [classFeatData, setClassFeatData] = useState(null);
 
     function capitalize(str) {
         if (!str) return '';
@@ -37,8 +39,25 @@ export default function CharacterSheet() {
             .then(res => res.json())
             .then(data => setBackgroundData(data))
             .catch(err => console.error(`Failed to fetch background data: ${err}`))
-    }, [character.background])
+    }, [character.background]);
 
+    useEffect(() => {
+        if (!character.charClass) return <p>No class data found, please try again.</p>
+
+        fetch(`/api/classes/${character.charClass}`)
+            .then(res => res.json())
+            .then(data => setClassData(data))
+            .catch(err => console.error(`Failed to fetch class data: ${err}`))
+    }, [character.charClass]);
+
+    useEffect(() => {
+        if (!classData?.id) return;
+
+        fetch(`/api/class_feats/classes/${classData?.id}`)
+            .then(res => res.json())
+            .then(data => setClassFeatData(data))
+            .catch(err => console.error(`Failed to fetch class feat data: ${err}`))
+    }, [classData])
 
     return (
         <div className="sheet-container">
@@ -126,8 +145,8 @@ export default function CharacterSheet() {
                     <div><label>Armor Class:</label><input type="number" /></div>
                     <div><label>Initiative:</label><input type="number" /></div>
                     <div><label>Speed:</label><input type="text" value={`${raceData?.speed} feet` || ""}/></div>
-                    <div><label>HP:</label><input type="text" /></div>
-                    <div><label>Hit Dice:</label><input type="text" /></div>
+                    <div><label>HP:</label><input type="text" value={`${classData?.hp}`}/></div>
+                    <div><label>Hit Dice:</label><input type="text" value={`${classData?.hit_dice}`}/></div>
                     <div><label>Death Saves:</label><input type="text" /></div>
                 </div>
                 </section>
@@ -137,24 +156,27 @@ export default function CharacterSheet() {
                     
                     <div className="prof-section">
                         <h4>Weapons</h4>
-                        <textarea rows="2" />
+                        <textarea rows="2" value={`${classData?.proficiencies.weapons.join(", ")}`}/>
                     </div>
 
                     <div className="prof-divider"></div>
 
                     <div className="prof-section">
                         <h4>Armor</h4>
-                        <textarea rows="2" />
+                        <textarea rows="2" value={`${classData?.proficiencies.armor.join(", ")}`}/>
                     </div>
 
                     <div className="prof-divider"></div>
 
                     <div className="prof-section">
                         <h4>Tools</h4>
-                        <textarea rows="2" value={
-                            backgroundData?.tool_prof.join(",") === "None" 
-                            ? ""
-                            : backgroundData?.tool_prof.join(", ")}/>
+                        <textarea
+                            rows="2"
+                            value={[
+                                ...(backgroundData?.tool_prof?.[0] === "None" ? [] : backgroundData?.tool_prof || []),
+                                ...(classData?.proficiencies?.tools || [])
+                            ].filter(Boolean).join(", ")}
+                            />
                     </div>
 
                     <div className="prof-divider"></div>
@@ -167,7 +189,7 @@ export default function CharacterSheet() {
 
                 <section className="equipment">
                 <h2>Equipment</h2>
-                <textarea rows="2" value={backgroundData?.equipment.join(", ")}/>
+                <textarea rows="2" value={[backgroundData?.equipment.join(", "), classData?.starting_equipment.join(", ")]}/>
                 </section>
 
                 <section className="features-traits">

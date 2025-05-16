@@ -4,77 +4,101 @@ from app.models import db, Character
 
 character_routes = Blueprint('characters', __name__)
 
-# Get all characters for the current user
-@character_routes.route('/')
+
+# Helper to convert lists to comma-separated strings
+def list_to_string(value):
+    return ", ".join(value) if isinstance(value, list) else value or ""
+
+
+# GET /api/characters - All characters for current user
+@character_routes.route('/', methods=['GET'])
 @login_required
 def get_all_characters():
     characters = Character.query.filter_by(user_id=current_user.id).all()
-    return jsonify([character.to_dict() for character in characters]), 200
+    return jsonify([char.to_dict() for char in characters]), 200
 
-# Get a specific character by ID
-@character_routes.route('/<int:id>')
+
+# GET /api/characters/<id> - Get one character (ownership checked)
+@character_routes.route('/<int:id>', methods=['GET'])
 @login_required
 def get_character(id):
-    character = Character.query.get(id)
-    if character and character.user_id == current_user.id:
+    character = Character.query.filter_by(id=id, user_id=current_user.id).first()
+    if character:
         return jsonify(character.to_dict()), 200
     return jsonify({"error": "Character not found or access denied"}), 404
 
-# Create a new character
+
+# POST /api/characters - Create a new character
 @character_routes.route('/', methods=['POST'])
 @login_required
 def create_character():
     data = request.get_json()
+
     new_character = Character(
         user_id=current_user.id,
-        race_id=data['race_id'],
-        background_id=data['background_id'],
-        ability_scores_id=data['ability_scores_id'],
-        inventory_id=data.get('inventory_id'),
-        level=data.get('level', 1),
-        name=data['name'],
-        alignment=data.get('alignment'),
-        exp=data.get('exp', 0),
-        hp=data.get('hp', 0),
-        ac=data.get('ac', 0),
-        speed=data.get('speed', 0),
-        initiative=data.get('initiative', 0),
-        proficiency_bonus=data.get('proficiency_bonus', 2)  # Default proficiency bonus
+        name=data.get("name"),
+        char_class=data.get("char_class"),
+        level=data.get("level", 1),
+        race=data.get("race"),
+        background=data.get("background"),
+        alignment=data.get("alignment", ""),
+        strength=data.get("strength", 10),
+        dexterity=data.get("dexterity", 10),
+        constitution=data.get("constitution", 10),
+        intelligence=data.get("intelligence", 10),
+        wisdom=data.get("wisdom", 10),
+        charisma=data.get("charisma", 10),
+        armor_class=data.get("armor_class"),
+        initiative=data.get("initiative"),
+        speed=data.get("speed"),
+        hp=data.get("hp"),
+        hit_dice=data.get("hit_dice"),
+        death_saves=data.get("death_saves"),
+        weapon_profs=list_to_string(data.get("weapon_profs")),
+        armor_profs=list_to_string(data.get("armor_profs")),
+        tool_profs=list_to_string(data.get("tool_profs")),
+        languages=list_to_string(data.get("languages")),
+        equipment=list_to_string(data.get("equipment")),
+        racial_traits=data.get("racial_traits", ""),
+        spellcasting=data.get("spellcasting", "")
     )
+
     db.session.add(new_character)
     db.session.commit()
     return jsonify(new_character.to_dict()), 201
 
-# Update an existing character
+
+# PUT /api/characters/<id> - Update character
 @character_routes.route('/<int:id>', methods=['PUT'])
 @login_required
 def update_character(id):
-    character = Character.query.get(id)
-    if not character or character.user_id != current_user.id:
+    character = Character.query.filter_by(id=id, user_id=current_user.id).first()
+    if not character:
         return jsonify({"error": "Character not found or access denied"}), 404
-    
+
     data = request.get_json()
-    character.name= data.get('name', character.name)
+    character.name = data.get('name', character.name)
     character.level = data.get('level', character.level)
     character.alignment = data.get('alignment', character.alignment)
-    character.exp = data.get('exp', character.exp)
     character.hp = data.get('hp', character.hp)
-    character.ac = data.get('ac', character.ac)
+    character.armor_class = data.get('armor_class', character.armor_class)
     character.speed = data.get('speed', character.speed)
     character.initiative = data.get('initiative', character.initiative)
+    character.exp = data.get('exp', character.exp)
     character.proficiency_bonus = data.get('proficiency_bonus', character.proficiency_bonus)
 
     db.session.commit()
     return jsonify(character.to_dict()), 200
 
-# Delete a character
+
+# DELETE /api/characters/<id> - Delete character
 @character_routes.route('/<int:id>', methods=['DELETE'])
 @login_required
 def delete_character(id):
-    character = Character.query.get(id)
-    if not character or character.user_id != current_user.id:
+    character = Character.query.filter_by(id=id, user_id=current_user.id).first()
+    if not character:
         return jsonify({"error": "Character not found or access denied"}), 404
-    
+
     db.session.delete(character)
     db.session.commit()
     return jsonify({"message": "Character deleted successfully"}), 200

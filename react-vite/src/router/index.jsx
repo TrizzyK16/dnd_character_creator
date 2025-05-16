@@ -5,6 +5,7 @@ import Layout from './Layout';
 import LandingPage from '../components/LandingPage/LandingPage';
 import CharacterBuilder from '../components/CharacterBuilder/CharacterBuilder';
 import CharacterSheet from '../components/CharacterSheet';
+import LoggedInLandingPage from '../components/LandingPage/LPUser/LPUser';
 
 export const router = createBrowserRouter([
   {
@@ -13,7 +14,7 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <LandingPage />,
-      },
+      },  
       {
         path: "login",
         element: <LoginFormPage />,

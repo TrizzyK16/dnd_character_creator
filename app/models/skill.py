@@ -8,13 +8,11 @@ class Skill(db.Model):
         __table_args__ = {"schema": SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    char_skill_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("char_skills.id")), nullable=False)
     index = db.Column(db.String, nullable=False, unique=True)
     name = db.Column(db.String, nullable=False)
     ability_score = db.Column(db.String, nullable=False)
 
     # Relationships
-    char_skill = db.relationship("CharSkill", back_populates="skills")
 
     def to_dict(self):
         return {

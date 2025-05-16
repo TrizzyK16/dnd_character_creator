@@ -17,14 +17,11 @@ class Race(db.Model):
     ability_bonuses = db.Column(db.JSON)
     age = db.Column(db.Text)
     alignment = db.Column(db.Text)
-    # size_description = db.Column(db.Text)
     starting_proficiencies = db.Column(db.JSON)
     languages = db.Column(db.JSON)
     traits = db.Column(db.JSON)
-    # language_desc = db.Column(db.Text)
 
     # Relationships
-    character = db.relationship("Character", back_populates="race")
     race_traits = db.relationship("RaceTrait", back_populates="race", cascade="all, delete-orphan")
     subraces = db.relationship("Subrace", back_populates="race", cascade="all, delete-orphan")
 

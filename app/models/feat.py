@@ -8,7 +8,6 @@ class Feat(db.Model):
         __table_args__ = {"schema": SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    char_feat_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("char_feats.id")), nullable=False)
 
     index = db.Column(db.String, nullable=False, unique=True)
     name = db.Column(db.String, nullable=False)
@@ -16,7 +15,7 @@ class Feat(db.Model):
     description = db.Column(db.Text, nullable=False)
 
     # Relationships
-    char_feat = db.relationship("CharFeat", back_populates="feats")
+
 
     def to_dict(self):
         return {
