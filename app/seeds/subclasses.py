@@ -60,7 +60,7 @@ def seed_subclasses():
 
 def undo_subclasses():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.suclasses RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.subclasses RESTART IDENTITY CASCADE;")
     else:
         db.session.execute(text("DELETE FROM subclasses"))
         
