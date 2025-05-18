@@ -32,8 +32,6 @@ export default function CharacterBuilder() {
     tool_profs: "",
     languages: "",
     equipment: "",
-    racial_traits: {},
-    class_feats: {},
   });
 
 const handleChange = (e) => {

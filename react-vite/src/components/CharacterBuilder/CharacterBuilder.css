@@ -22,6 +22,10 @@ body {
   gap: 1rem;
 }
 
+.name-container input {
+  width: 55%;
+}
+
 .ability-scores-row {
   display: flex;
   flex-wrap: wrap; /* Optional: allows wrapping on smaller screens */
@@ -49,5 +53,5 @@ body {
 }
 
 .level-container input {
-  width: 3.75%;
+  width: 10%;
 }

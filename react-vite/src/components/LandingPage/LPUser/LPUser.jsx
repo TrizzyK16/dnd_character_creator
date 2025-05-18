@@ -93,6 +93,10 @@ export default function LPUser() {
           </Link>
         </div>
       )}
+      <footer>
+        <div className="footer-banner">
+        </div>
+      </footer>
     </div>
   );
 }

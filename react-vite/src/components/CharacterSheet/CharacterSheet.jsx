@@ -2,6 +2,7 @@ import { useCharacter } from "../Context/CharacterContext";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useNavigate } from "react-router-dom";
+import DeathSaves from "./Helpers/DeathSaves/DeathSaves";
 import "./CharacterSheet.css";
 
 
@@ -28,6 +29,27 @@ export default function CharacterSheet({ mode = "view" }) {
     function getModifier(score) {
         return Math.floor((score - 10) / 2);
     }
+
+    const skillList = [
+        { name: "Acrobatics", ability: "dexterity" },
+        { name: "Animal Handling", ability: "wisdom" },
+        { name: "Arcana", ability: "intelligence" },
+        { name: "Athletics", ability: "strength" },
+        { name: "Deception", ability: "charisma" },
+        { name: "History", ability: "intelligence" },
+        { name: "Insight", ability: "wisdom" },
+        { name: "Intimidation", ability: "charisma" },
+        { name: "Investigation", ability: "intelligence" },
+        { name: "Medicine", ability: "wisdom" },
+        { name: "Nature", ability: "intelligence" },
+        { name: "Perception", ability: "wisdom" },
+        { name: "Performance", ability: "charisma" },
+        { name: "Persuasion", ability: "charisma" },
+        { name: "Religion", ability: "intelligence" },
+        { name: "Sleight of Hand", ability: "dexterity" },
+        { name: "Stealth", ability: "dexterity" },
+        { name: "Survival", ability: "wisdom" },
+    ];
 
     // --- Fetch race info ---
     useEffect(() => {
@@ -131,33 +153,20 @@ export default function CharacterSheet({ mode = "view" }) {
                 <section className="skills-section">
                     <h2>Skills</h2>
                     <div className="skills-grid">
-                        {[
-                            { name: "Acrobatics", ability: "DEX" },
-                            { name: "Animal Handling", ability: "WIS" },
-                            { name: "Arcana", ability: "INT" },
-                            { name: "Athletics", ability: "STR" },
-                            { name: "Deception", ability: "CHA" },
-                            { name: "History", ability: "INT" },
-                            { name: "Insight", ability: "WIS" },
-                            { name: "Intimidation", ability: "CHA" },
-                            { name: "Investigation", ability: "INT" },
-                            { name: "Medicine", ability: "WIS" },
-                            { name: "Nature", ability: "INT" },
-                            { name: "Perception", ability: "WIS" },
-                            { name: "Performance", ability: "CHA" },
-                            { name: "Persuasion", ability: "CHA" },
-                            { name: "Religion", ability: "INT" },
-                            { name: "Sleight of Hand", ability: "DEX" },
-                            { name: "Stealth", ability: "DEX" },
-                            { name: "Survival", ability: "WIS" },
-                        ].map((skill) => (
+                        {skillList.map((skill) => {
+                        const score = character[skill.ability] || 0;
+                        const mod = getModifier(score);
+                        const formattedMod = mod >= 0 ? `+${mod}` : `${mod}`;
+
+                        return (
                             <div className="skill" key={skill.name}>
-                                <label>
-                                    <input type="checkbox" disabled /> {skill.name} ({skill.ability})
-                                </label>
-                                <input type="number" placeholder="+0" readOnly />
+                            <label>
+                                <input type="checkbox" disabled /> {skill.name} ({skill.ability.toUpperCase()})
+                            </label>
+                            <input type="text" readOnly value={formattedMod} />
                             </div>
-                        ))}
+                        );
+                        })}
                     </div>
                 </section>
 
@@ -165,11 +174,15 @@ export default function CharacterSheet({ mode = "view" }) {
                     <h2>Combat</h2>
                     <div className="combat-grid">
                         <div><label>Armor Class:</label><input type="number" value={character?.armor_class || ""} readOnly /></div>
-                        <div><label>Initiative:</label><input type="number" value={getModifier(character["dexterity"] || 10)} readOnly /></div>
+                        <div><label>Initiative:</label><input type="number" value={getModifier(character["dexterity"] || 0)} readOnly /></div>
+                        <div><label>Proficiency:</label><input type="number" value={getModifier(character["dexterity"] || 0)} readOnly /></div>
                         <div><label>Speed:</label><input type="text" value={raceData?.speed || character?.speed || ""} readOnly /></div>
                         <div><label>HP:</label><input type="text" value={classData?.hp || character?.hp || ""} readOnly /></div>
                         <div><label>Hit Dice:</label><input type="text" value={classData?.hit_dice || character?.hit_dice || ""} readOnly /></div>
-                        <div><label>Death Saves:</label><input type="text" readOnly /></div>
+                        <div className="death-saves">
+                            <label>Death Saves:</label>
+                            <DeathSaves />
+                        </div>
                     </div>
                 </section>
 
