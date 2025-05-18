@@ -33,7 +33,7 @@ class Character(db.Model):
     death_saves = db.Column(db.String(20))
 
     # Proficiencies
-    weapon_profs = db.Column(db.Text)  # comma-separated
+    weapon_profs = db.Column(db.Text)
     armor_profs = db.Column(db.Text)
     tool_profs = db.Column(db.Text)
     languages = db.Column(db.Text)
@@ -42,7 +42,8 @@ class Character(db.Model):
     equipment = db.Column(db.Text)
 
     # Traits
-    racial_traits = db.Column(db.Text)  # store as JSON string or just plain text
+    racial_traits = db.Column(db.JSON)
+    class_feats = db.Column(db.JSON)
 
     # Relationships
     user = db.relationship("User", back_populates="characters")
@@ -77,6 +78,7 @@ class Character(db.Model):
             "languages": self.languages,
             "equipment": self.equipment,
             "racial_traits": self.racial_traits,
+            "class_feats": self.class_feats
         }
 
 

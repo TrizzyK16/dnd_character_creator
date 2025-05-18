@@ -19,7 +19,7 @@ export default function CharClassSelector({ onChange }) {
     const handleSelectChange = (e) => {
         const value = e.target.value;
         setSelectedIndex(value);
-        onChange({ target: { name: "charClass", value } })
+        onChange({ target: { name: "charClass", value } || {name:"char_class", value} })
     }
 
     return (

@@ -27,6 +27,13 @@ def get_character(id):
         return jsonify(character.to_dict()), 200
     return jsonify({"error": "Character not found or access denied"}), 404
 
+# Get characters by user_id   
+@character_routes.route('/users/<int:user_id>/characters')
+@login_required
+def get_user_characters(user_id):
+    characters = Character.query.filter_by(user_id=user_id).all()
+    return jsonify([char.to_dict() for char in characters])
+
 
 # POST /api/characters - Create a new character
 @character_routes.route('/', methods=['POST'])
@@ -60,7 +67,7 @@ def create_character():
         languages=list_to_string(data.get("languages")),
         equipment=list_to_string(data.get("equipment")),
         racial_traits=data.get("racial_traits", ""),
-        spellcasting=data.get("spellcasting", "")
+        class_feats=data.get("class_feats", ""),
     )
 
     db.session.add(new_character)
@@ -77,16 +84,25 @@ def update_character(id):
         return jsonify({"error": "Character not found or access denied"}), 404
 
     data = request.get_json()
-    character.name = data.get('name', character.name)
-    character.level = data.get('level', character.level)
-    character.alignment = data.get('alignment', character.alignment)
-    character.hp = data.get('hp', character.hp)
-    character.armor_class = data.get('armor_class', character.armor_class)
-    character.speed = data.get('speed', character.speed)
-    character.initiative = data.get('initiative', character.initiative)
-    character.exp = data.get('exp', character.exp)
-    character.proficiency_bonus = data.get('proficiency_bonus', character.proficiency_bonus)
-
+    character.name = data.get("name", character.name)
+    character.level = data.get("level", character.level)
+    character.alignment = data.get("alignment", character.alignment)
+    character.strength = data.get("strength", character.strength)
+    character.dexterity = data.get("dexterity", character.dexterity)
+    character.constitution = data.get("constitution", character.constitution)
+    character.intelligence = data.get("intelligence", character.intelligence)
+    character.wisdom = data.get("wisdom", character.wisdom)
+    character.charisma = data.get("charisma", character.charisma)
+    character.armor_class = data.get("armor_class", character.armor_class)
+    character.initiative = data.get("initiative", character.initiative)
+    character.speed = data.get("speed", character.speed)
+    character.hp = data.get("hp", character.hp)
+    character.hit_dice = data.get("hit_dice", character.hit_dice)
+    character.weapon_profs = data.get("weapon_profs", character.weapon_profs)
+    character.armor_profs = data.get("armor_profs", character.armor_profs)
+    character.tool_profs = data.get("tool_profs", character.tool_profs)
+    character.languages = data.get("languages", character.languages)
+    character.equipment = data.get("equipment", character.equipment)
     db.session.commit()
     return jsonify(character.to_dict()), 200
 

@@ -1,8 +1,8 @@
-"""Initial migration with Character and Spell models
+"""Initial Migration
 
-Revision ID: 7a0d18ac2915
+Revision ID: 74bb8230661a
 Revises: 
-Create Date: 2025-05-15 20:43:49.503551
+Create Date: 2025-05-16 13:25:51.365924
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '7a0d18ac2915'
+revision = '74bb8230661a'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -139,7 +139,8 @@ def upgrade():
     sa.Column('tool_profs', sa.Text(), nullable=True),
     sa.Column('languages', sa.Text(), nullable=True),
     sa.Column('equipment', sa.Text(), nullable=True),
-    sa.Column('racial_traits', sa.Text(), nullable=True),
+    sa.Column('racial_traits', sa.JSON(), nullable=True),
+    sa.Column('class_feats', sa.JSON(), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )

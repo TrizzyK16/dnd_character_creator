@@ -5,7 +5,7 @@ from app.models import db, Spell, Character
 spell_routes = Blueprint('spells', __name__)
 
 # Get all spells for a character
-@spell_routes.route('/character/<int:character_id>', methods=['GET'])
+@spell_routes.route('/characters/users/<int:character_id>/characters', methods=['GET'])
 @login_required
 def get_spells_for_character(character_id):
     character = Character.query.get(character_id)

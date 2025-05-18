@@ -1,0 +1,26 @@
+.spell-viewer-container {
+  padding: 2rem;
+}
+
+.spell-list {
+  list-style: none;
+  padding: 0;
+}
+
+.spell-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background-color: #f9f9f9;
+}
+
+.create-spell-button {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background: #4b0082;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+}

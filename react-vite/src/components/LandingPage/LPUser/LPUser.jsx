@@ -10,12 +10,37 @@ export default function LPUser() {
   const [characters, setCharacters] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const handleDelete = async (charId) => {
+    const confirmed = window.confirm("Are you sure you want to delete this character?");
+    if (!confirmed) return;
+
+    try {
+      const response = await fetch(`/api/characters/${charId}`, {
+        method: 'DELETE',
+        credentials: 'include',
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Failed to delete character");
+      }
+
+      // Remove character from local state
+      setCharacters(prev => prev.filter(char => char.id !== charId));
+      alert("Character deleted!");
+    } catch (err) {
+      console.error("Delete error:", err);
+      alert("Failed to delete character.");
+    }
+ };
+
+
   useEffect(() => {
     if (!user?.id) return;
 
     const fetchCharacters = async () => {
   try {
-    const response = await fetch(`/api/users/${user.id}/characters`);
+    const response = await fetch(`/api/characters/users/${user.id}/characters`);
     if (!response.ok) throw new Error("Failed to fetch");
 
     const data = await response.json();
@@ -42,7 +67,13 @@ export default function LPUser() {
           <ul>
             {characters.map((char) => (
               <li key={char.id}>
-                <Link to={`/characters/${char.id}`}>{char.name}</Link>
+                <Link to={`/character-sheet/${char.id}`}>{char.name}</Link>
+                <button 
+                  onClick={() => handleDelete(char.id)} 
+                  style={{ marginLeft: '10px', color: 'red' }}
+                >
+                  Delete
+                </button>
               </li>
             ))}
           </ul>
