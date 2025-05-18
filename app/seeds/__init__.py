@@ -19,32 +19,35 @@ seed_commands = AppGroup('seed')
 @seed_commands.command('all')
 def seed():
     if environment == 'production':
-        # Before seeding in production, you want to run the seed undo 
-        # command, which will  truncate all tables prefixed with 
-        # the schema name (see comment in users.py undo_users function).
-        # Make sure to add all your other model's undo functions below
-        undo_users()
+        undo_subclass_feats()
+        undo_subclasses()
+        undo_races()
+        undo_class_feats()
+        undo_char_classes()
+        undo_backgrounds()
         undo_characters()
+        undo_users()
+
+    # Seed in the correct order
     seed_users()
     seed_characters()
     seed_backgrounds()
     seed_char_classes()
     seed_class_feat()
     seed_races()
-    seed_subclass_feats()
-    seed_subclasses()
-    # Add other seed functions here
+    seed_subclasses()         # Seed subclasses first
+    seed_subclass_feats()    # Then subclass_feats, which depend on them
+
 
 
 # Creates the `flask seed undo` command
 @seed_commands.command('undo')
 def undo():
-    undo_users()
-    undo_characters()
-    undo_backgrounds()
-    undo_char_classes()
-    undo_class_feats()
-    undo_races()
     undo_subclass_feats()
     undo_subclasses()
-    # Add other undo functions here
+    undo_races()
+    undo_class_feats()
+    undo_char_classes()
+    undo_backgrounds()
+    undo_characters()
+    undo_users()
