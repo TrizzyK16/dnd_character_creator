@@ -5,11 +5,11 @@ import Layout from './Layout';
 import LandingPage from '../components/LandingPage/LandingPage';
 import CharacterBuilder from '../components/CharacterBuilder/CharacterBuilder';
 import CharacterSheet from '../components/CharacterSheet';
-// import LoggedInLandingPage from '../components/LandingPage/LPUser/LPUser';
 import EditCharacter from '../components/EditCharacterSheet/EditCharacterSheet';
 import CreateSpell from '../components/Spell/CreateSpell/CreateSpell';
 import SpellViewer from '../components/Spell/ViewSpell/ViewSpell';
 import EditSpell from '../components/Spell/EditSpell/EditSpell';
+import UnderConstruction from '../components/UnderConstruction/UnderConstruction';
 
 export const router = createBrowserRouter([
   {
@@ -54,6 +54,10 @@ export const router = createBrowserRouter([
       {
         path: "/spells/:spellId/edit",
         element: <EditSpell />
+      },
+      {
+        path: "/*",
+        element: <UnderConstruction />
       }
     ],
   },

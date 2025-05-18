@@ -59,29 +59,36 @@ export default function LPUser() {
 
   return (
     <div className="home-container">
-      <h2>Welcome, {user.username}!</h2>
+      <div className="welcome-container">
+        <h2>Welcome, {user.username}!</h2>
+            <Link to="/builder" className="btn">
+              Create a Character
+            </Link>
+      </div>
 
       {characters.length > 0 ? (
         <div>
           <h3>Your Characters:</h3>
-          <ul>
+          <div className="character-grid">
             {characters.map((char) => (
-              <li key={char.id}>
-                <Link to={`/character-sheet/${char.id}`}>{char.name}</Link>
+              <div key={char.id} className="character-box">
+                <Link to={`/character-sheet/${char.id}`} className="character-name">
+                  {char.name}
+                </Link>
                 <button 
                   onClick={() => handleDelete(char.id)} 
-                  style={{ marginLeft: '10px', color: 'red' }}
+                  className="delete-btn"
                 >
                   Delete
                 </button>
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
       ) : (
         <div>
           <p>You haven&apos;t created any characters yet.</p>
-          <Link to="/character-builder" className="btn">
+          <Link to="/builder" className="btn">
             Build Your First Character
           </Link>
         </div>

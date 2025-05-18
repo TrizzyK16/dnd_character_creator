@@ -53,7 +53,7 @@ function LoginFormModal() {
           {errors.email && <div className="error-message">{errors.email}</div>}
         </div>
 
-        <div>
+        <div className="login-form-group">
           <label>Password</label>
             <input
               id="password"

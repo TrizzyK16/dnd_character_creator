@@ -180,7 +180,6 @@ const handleChange = (e) => {
         </section>
 
         <div className="button-group">
-          <button type="submit">Preview Character</button>
           <button type="button" onClick={handleSaveCharacter}>
             Save Character
           </button>

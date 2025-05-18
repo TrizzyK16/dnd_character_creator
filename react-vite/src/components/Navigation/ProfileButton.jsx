@@ -1,13 +1,13 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { FaBars, FaCamera, FaUser, FaCog, FaSignOutAlt, FaUserPlus, FaSignInAlt, FaUsers, FaCalendarAlt, FaPrint } from 'react-icons/fa';
+import { FaBars, FaUser, FaCog, FaSignOutAlt, FaUserPlus, FaSignInAlt, FaUsers, FaCalendarAlt, FaPrint } from 'react-icons/fa';
 import { thunkLogout } from "../../redux/session";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import { useNavigate } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 
-function ProfileButton() {
+ function ProfileButton() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
@@ -71,11 +71,7 @@ function ProfileButton() {
         <div className="profile-dropdown" ref={ulRef}>
           {user ? (
             <div className="dropdown-grid">
-              <a href="/photos" className="dropdown-item">
-                <FaCamera className="dropdown-icon" />
-                <span>Characters</span>
-              </a>
-              <a href="/you" className="dropdown-item">
+              <a href="/" className="dropdown-item">
                 <FaUser className="dropdown-icon" />
                 <span>Your Page</span>
               </a>
@@ -83,11 +79,11 @@ function ProfileButton() {
                 <FaUsers className="dropdown-icon" />
                 <span>Races</span>
               </a>
-              <a href="/events" className="dropdown-item">
+              <a href="/classes" className="dropdown-item">
                 <FaCalendarAlt className="dropdown-icon" />
                 <span>Classes</span>
               </a>
-              <a href="/prints" className="dropdown-item">
+              <a href="/builder" className="dropdown-item">
                 <FaPrint className="dropdown-icon" />
                 <span>Character Creator</span>
               </a>

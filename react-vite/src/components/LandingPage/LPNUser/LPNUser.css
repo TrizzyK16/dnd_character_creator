@@ -11,7 +11,8 @@
 .landing-hero {
   flex: 1;
   text-align: center;
-  padding: 4rem 1rem;
+  padding: 23rem 1rem 4rem;
+  background: url('../../../images/dragon-banner-top.jpg') center/cover no-repeat
 }
 
 .landing-hero h1 {
@@ -25,7 +26,17 @@
 }
 
 .landing-cta {
-  margin: 0 0.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+
+.create-container {
+  flex: 1;
+  text-align: center;
+  padding: 4rem 1rem;
 }
 
 .landing-features {
@@ -39,9 +50,54 @@
   margin-bottom: 0.5rem;
 }
 
+.feature {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease;
+}
+
+.feature:hover {
+  transform: translateY(-5px);
+}
+
+
 .landing-footer {
   text-align: center;
   padding: 2rem 1rem;
   background: #f9f9f9;
 }
 
+.landing-footer .signup-link {
+  display: inline-block;
+  margin-top: 1rem;
+}
+
+.signup-link, .login-link {
+  padding: 0.75rem 1.5rem;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.signup-link {
+  background-color: #6b46c1; /* Purple */
+  color: white;
+}
+
+.signup-link:hover {
+  background-color: #553c9a;
+}
+
+.login-link {
+  background-color: transparent;
+  color: #6b46c1;
+  border: 2px solid #6b46c1;
+}
+
+.login-link:hover {
+  background-color: #6b46c1;
+  color: white;
+}
