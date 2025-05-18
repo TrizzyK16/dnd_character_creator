@@ -46,7 +46,7 @@ def seed_backgrounds():
 
 def undo_backgrounds():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.backgorunds RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.backgrounds RESTART IDENTITY CASCADE;")
     else:
         db.session.execute(text("DELETE FROM backgrounds"))
         
